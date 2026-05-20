@@ -1,5 +1,8 @@
 import Foundation
+import CoreLocation
+#if SWIFT_PACKAGE
 import MapboxDirectionsObjc
+#endif
 
 /**
  A `MatchOptions` object is a structure that specifies the criteria for results returned by the Mapbox Map Matching API.

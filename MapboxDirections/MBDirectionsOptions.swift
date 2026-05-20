@@ -1,6 +1,9 @@
 import Foundation
 import Polyline
+import CoreLocation
+#if SWIFT_PACKAGE
 import MapboxDirectionsObjc
+#endif
 
 /**
  A `RouteShapeFormat` indicates the format of a route or match shape in the raw HTTP response.

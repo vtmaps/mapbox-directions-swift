@@ -1,6 +1,8 @@
 import CoreLocation
 import Polyline
+#if SWIFT_PACKAGE
 import MapboxDirectionsObjc
+#endif
 
 /**
  A `TransportType` specifies the mode of transportation used for part of a route.

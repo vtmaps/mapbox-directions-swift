@@ -1,5 +1,7 @@
 import CoreLocation
+#if SWIFT_PACKAGE
 import MapboxDirectionsObjc
+#endif
 
 /**
  A `RouteOptions` object is a structure that specifies the criteria for results returned by the Mapbox Directions API.

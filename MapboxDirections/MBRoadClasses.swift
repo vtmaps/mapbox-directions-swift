@@ -1,5 +1,7 @@
 import Foundation
+#if SWIFT_PACKAGE
 import MapboxDirectionsObjc
+#endif
 
 public typealias RoadClasses = MBRoadClasses
 
