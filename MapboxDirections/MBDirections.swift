@@ -321,8 +321,12 @@ open class Directions: NSObject {
             components.path = "/gateway/routing/v1/directions/\(profile)"
             
             var alternatives = "false"
+            var bannerInstructions = "false"
+            var voiceInstructions = "false"
             if let routeOptions = options as? RouteOptions {
                 alternatives = String(routeOptions.includesAlternativeRoutes)
+                bannerInstructions = String(routeOptions.includesVisualInstructions)
+                voiceInstructions = String(routeOptions.includesSpokenInstructions)
             }
             
             components.queryItems = [
@@ -331,6 +335,8 @@ open class Directions: NSObject {
                 URLQueryItem(name: "steps", value: "true"),
                 URLQueryItem(name: "overview", value: "full"),
                 URLQueryItem(name: "language", value: "vi"),
+                URLQueryItem(name: "banner_instructions", value: bannerInstructions),
+                URLQueryItem(name: "voice_instructions", value: voiceInstructions),
                 URLQueryItem(name: "alternatives", value: alternatives),
                 URLQueryItem(name: "access_token", value: accessToken)
             ]
