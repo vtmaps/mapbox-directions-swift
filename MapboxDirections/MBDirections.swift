@@ -302,6 +302,42 @@ open class Directions: NSObject {
      */
     @objc(URLForCalculatingDirectionsWithOptions:)
     open func url(forCalculating options: DirectionsOptions) -> URL {
+        if let host = apiEndpoint.host, host.contains("api-maps.viettel.vn") {
+            var profile = "driving"
+            let rawProfile = options.profileIdentifier.rawValue
+            if rawProfile.contains("walking") {
+                profile = "walking"
+            } else if rawProfile.contains("cycling") {
+                profile = "cycling"
+            } else {
+                profile = "driving"
+            }
+            
+            let coordinatesStr = options.queries.joined(separator: ";")
+            
+            var components = URLComponents()
+            components.scheme = apiEndpoint.scheme ?? "https"
+            components.host = host
+            components.path = "/gateway/routing/v1/directions/\(profile)"
+            
+            var alternatives = "false"
+            if let routeOptions = options as? RouteOptions {
+                alternatives = String(routeOptions.includesAlternativeRoutes)
+            }
+            
+            components.queryItems = [
+                URLQueryItem(name: "coordinates", value: coordinatesStr),
+                URLQueryItem(name: "geometries", value: "polyline6"),
+                URLQueryItem(name: "steps", value: "true"),
+                URLQueryItem(name: "overview", value: "full"),
+                URLQueryItem(name: "language", value: "vi"),
+                URLQueryItem(name: "alternatives", value: alternatives),
+                URLQueryItem(name: "access_token", value: accessToken)
+            ]
+            
+            return components.url!
+        }
+        
         let params = options.params + [
             URLQueryItem(name: "access_token", value: accessToken),
         ]
